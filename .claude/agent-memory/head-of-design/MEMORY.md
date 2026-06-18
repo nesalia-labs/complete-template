@@ -1,0 +1,2 @@
+- [Stack technique](tech-stack.md) — Tailwind CSS v4 + shadcn/ui comme fondation du design system
+- [Outil fresh CLI](reference-fresh-cli.md) — recherche/fetch web via Exa.ai, dispo dans le terminal

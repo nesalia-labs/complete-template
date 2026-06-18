@@ -1,0 +1,14 @@
+- [Fresh CLI](reference-fresh-cli.md) — `fresh` tool: web search (Exa.ai) + URL fetch, with auth/search/fetch subcommands
+- [User language](user-language.md) — user prefers English replies even when writing in French; don't mirror their input language
+- [Don't infer response language](feedback-dont-infer-response-language.md) — input language ≠ preferred reply language; default to English unless told otherwise
+- [User role](user-role.md) — user is founder/PM of this template product; expects market-driven recommendations, not pre-committed picks
+- [Project purpose](project-purpose.md) — repo is DeesseJS, a commercial web/fullstack template to be sold, competing with supastarter / supafast / nextforge; currently in discovery phase
+- [Template competitors](reference-template-competitors.md) — verified competitor set (supastarter, Makerkit, ShipFast, TurboStarter, SaasRock, Nexty) with pricing, stack, AI depth
+- [Market research 2026-06](project-market-research-2026-06.md) — first deep-research pass: AI depth gap, pricing norms, distribution dynamics
+- [Buyer voice 2026-06](project-buyer-voice-2026-06.md) — second deep-research pass: wedge is inferred not confirmed, Stain Lu quote is gold, supastarter is a direct competitor on completeness
+- [Stack and scope 2026-06](project-stack-and-scope-2026-06.md) — locked stack (Next.js, Drizzle, Better Auth, Vercel AI SDK, Trigger.dev, Fumadocs, Upstash Realtime/Redis, Tailwind+shadcn, Resend) + feature surface
+- [Positioning: hybrid 2026-06](project-positioning-hybrid-2026-06.md) — "Apple of SaaS templates" = completeness + DX, AI depth de-prioritized as headline
+- [Upstash Realtime](reference-upstash-realtime.md) — typed SSE pub/sub on Upstash Redis; in-app notifications surface, also handles sessions/rate-limit/cache
+- [Unmet needs 2026-06](project-unmet-needs-2026-06.md) — top 10 unmet needs (sweep across Reddit/PH/GH/Twitter/IH/HN + competitor gap), "what NOT to ship" list, cross-validated against the DeesseJS spec
+- [DeesseJS Cloud feasibility 2026-06](project-deessejs-cloud-2026-06.md) — managed SaaS template variant, per-client Vercel Platforms + Turso + Upstash, single `DEESSEJS_SECRET` env var. Recommendation: build v0 behind 30-tenant private beta in 2026-Q3. 87%+ margin at median usage.
+- [Lead magnets 2026-06](project-lead-magnets-2026-06.md) — top-of-funnel strategy. Primary: DeesseJS Lite (public mini-template). Plus 3-tier combined strategy + the State of SaaS Templates 2026 report (the "anti-competitive twist").

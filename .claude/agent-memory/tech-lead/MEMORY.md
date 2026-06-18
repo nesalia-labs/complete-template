@@ -1,0 +1,2 @@
+- [DeesseJS product overview](project-deessejs-overview.md) — wedge, stack, scope, current state for tech-lead work on the DeesseJS template product
+- [User role](user-role-product.md) — founder/PM of DeesseJS, French conversation, English docs, wants depth and direct recommendations

@@ -1,0 +1,15 @@
+- [User language](user-language.md) — user prefers English replies even when writing in French; don't mirror their input language
+- [Don't infer response language](feedback-dont-infer-response-language.md) — input language ≠ preferred reply language; default to English unless told otherwise
+- [User role](user-role.md) — user is founder/PM of DeesseJS; expects market-driven recommendations, not pre-committed picks
+- [DeesseJS marketing overview](project-deessejs-marketing-overview.md) — **PIVOT (2026-06-17):** from "Apple of SaaS templates" to **"The agentic SaaS template that never sleeps."** Primary claim: "You stop being the developer. Your agents become the developers." Three axes: without writing code, without assembling, without limits. Per-tenant metering + usage-based billing = the "charge your users" mechanism. No competitor owns "agentic" as primary positioning.
+- [Lead magnets strategy](project-lead-magnets-strategy.md) — 3-tier combined strategy (Lite + State of SaaS Templates + public demo) + the Buyer's Guide as anti-competitive twist
+- [Distribution and launch](project-distribution-launch.md) — channels, sequencing, launch plan. Don't try to copy ShipFast's brand moat.
+- [SEO strategy](project-seo-strategy.md) — long-tail keywords on completeness + DX, content pillars, AI-search schema as table-stakes
+- [Funnel math](project-funnel-math.md) — 0.5% visitor→customer; $484K at 1000 buyers/year; volume is the biggest lever
+- [Pricing messaging](project-pricing-messaging.md) — 3 tiers ($299/$599/$999), consistent gate philosophy, objection handling, open pricing questions
+- [Marketing roadmap](project-marketing-roadmap.md) — marketing timeline tied to the v1 build milestones (M0-M8)
+- [Offer design research 2026-06](project-offer-design-research-2026-06.md) — deep-research on buyer psychology, conversion benchmarks, competitor teardowns. 5 confirmed findings (14-day guarantee, no payment plans, time-to-market panic, specificity in social proof, real deadline). 11 refuted claims (don't use). Full cited report at `documents/internal/marketing/offer-design-research.md`.
+- [DeesseJS Cloud marketing](project-deessejs-cloud-marketing.md) — managed variant as post-launch upgrade path; greenfield category; private beta in 2026-Q3
+- [Competitor marketing playbook](reference-competitor-marketing.md) — per-competitor positioning, our differentiator, counter-message for the Buyer's Guide
+- [Copy angles](reference-copy-angles.md) — hero options, the Stain Lu quote, objection handling, surprise ammunition
+- [No half-built features (marketing)](feedback-marketing-no-half-built-features.md) — marketing copy must respect the Apple positioning; never overpromise
