@@ -13,4 +13,23 @@ Outil `fresh` disponible dans le terminal du projet. CLI de recherche/fetch web 
 - `fresh fetch [options] <url>` — fetch + extraction de contenu depuis une URL
 - `fresh help [command]` — aide sur une sous-commande
 
-**How to apply:** Quand l'utilisateur veut faire une recherche web ciblée ou récupérer le contenu d'une page précise (docs, articles, design references, palettes, etc.), préférer `fresh` à WebSearch/WebFetch quand c'est pertinent — Exa.ai donne souvent de meilleurs résultats pour les requêtes design/tech spécifiques. Voir aussi [[tech-stack]] pour le contexte projet.
+**Quand utiliser `fresh` en priorité :**
+- Recherche web ciblée (design, UI, tendances, competitors, articles)
+- Récupération de contenu depuis une URL précise (docs, articles, design references)
+- Benchmark de palettes de couleurs, typographies, composants
+
+**Commandes clés :**
+```bash
+# Recherche web
+fresh search -q "votre requête" -l 10 -t auto
+
+# Fetch contenu depuis URL
+fresh fetch https://example.com -p "prompt d'extraction"
+
+# Status auth
+fresh auth status
+```
+
+**Why:** Exa.ai (moteur de fresh) donne des résultats plus précis pour les requêtes design/tech spécifiques que les recherches génériques. L'outil est disponible directement dans le terminal — pas besoin de changer de contexte.
+
+**How to apply:** Utiliser `fresh search` / `fresh fetch` comme **première option** pour toute recherche web ou extraction de contenu. Considérer WebSearch/WebFetch uniquement si fresh n'est pas disponible ou a échoué. Voir aussi [[tech-stack]] pour le contexte projet.

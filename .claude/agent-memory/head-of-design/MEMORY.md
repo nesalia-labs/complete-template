@@ -1,2 +1,14 @@
+- [Always speak English](feedback-always-speak-english.md) — always respond in English regardless of user's language
+- [Landing page structure](documents/internal/design/landing-page-structure.md) — page anatomy, InteractiveFiletree spec, components inventory, open questions
+- [Feedback setup shadcn monorepo](feedback-shadcn-monorepo-setup.md) — CLI v4 monorepo workflow + mistakes to avoid (aliases, radix imports, CLI flags)
+- [Feedback @workspace/ui exports](feedback-workspace-ui-export-issue.md) — wildcard exports fail in Next.js, use explicit paths
+- [Feedback Tailwind v4 @source](feedback-tailwind-v4-monorepo-source.md) — @source directive required after @import tailwindcss for monorepo styles
+- [Feedback never run dev](feedback-never-run-dev-server.md) — never launch dev servers, note issues only
 - [Stack technique](tech-stack.md) — Tailwind CSS v4 + shadcn/ui comme fondation du design system
 - [Outil fresh CLI](reference-fresh-cli.md) — recherche/fetch web via Exa.ai, dispo dans le terminal
+- [Google DESIGN.md](reference-google-design-md.md) — format open standard de spec UI (Google Labs/Stitch), lisible humain + IA
+- [Tailwind CSS v4](reference-tailwind-v4.md) — knowledge base v4 : features majeures, breaking changes, pattern @theme, timeline v4.0→4.3
+- [shadcn/ui](reference-shadcn.md) — CLI v4, theming sémantique, Rhea style, Radix + Base UI, presets AI-native
+- [Motion](reference-motion.md) — ex-Framer Motion, hybrid WAAPI engine, layout animations, AI Kit skills
+- [Vercel Geist](reference-vercel-geist.md) — design system inspiration : intent-based scale, motion "0ms is best", voice rules, focus ring signature
+- [DeesseJS produit](project-deessejs-product.md) — contexte commercial + 6 design principles load-bearing + audience B2B dev

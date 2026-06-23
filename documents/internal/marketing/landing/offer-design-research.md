@@ -399,9 +399,9 @@ This is credible because: the price increase is real, the deadline is stated, it
 **Frame as: "Founder Edition — Lock In Your Rate"**
 
 The pre-launch page should communicate:
-1. What DeesseJS is: "The Apple of SaaS templates — opinionated, beautiful, built for indie founders who ship."
+1. What DeesseJS is: "The agentic SaaS template — built for founders who want their agents to ship."
 2. What it does: "Go from zero to production SaaS in days, not months. Auth, payments, organizations, admin UI, AI-agent ready."
-3. The hook: "Built for serious founders who are tired of stitching together boilerplate."
+3. The hook: "Built for founders who want their agents to build while they sleep."
 4. Founder rate: "$249 — locked in for founding customers. Price goes to $399 after launch."
 5. Why now: "Founder edition closes July 31, 2026. After that, it's $399 or nothing."
 6. Social proof (even pre-launch): Name the early customers, show their projects, use their quotes.
@@ -429,4 +429,4 @@ The pre-launch page should communicate:
 
 ---
 
-*Sources: supastarter.dev, makerkit.dev, saasrock.com. All competitor claims verified by adversarial vote (3 votes, 2/3 refutes to kill). Full agent transcript at: `C:\Users\dpereira\AppData\Local\Temp\claude\...\tasks\we0w6kq8g.output`*
+*Sources: supastarter.dev, makerkit.dev, saasrock.com. All competitor claims verified by adversarial vote (3 votes, 2/3 refutes to kill).*

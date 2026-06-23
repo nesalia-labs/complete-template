@@ -1,26 +1,13 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Re-export the shared theme tokens (light + dark + Radix data-* variants
+   + body styles + Tailwind source directives) from packages/ui.
+   The @source directives live INSIDE packages/ui/src/styles/globals.css
+   (not here) so they use the correct relative paths from packages/ui's
+   perspective. */
+@import "@deessejs/ui/globals.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

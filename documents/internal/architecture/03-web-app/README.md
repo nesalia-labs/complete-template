@@ -9,6 +9,7 @@ The framework (Next.js) is documented in [`01-stack/nextjs.md`](../01-stack/next
 ## What's in here
 
 - `README.md` (this file) — entry point + surface map.
+- `pages.md` — the full page inventory per surface, with M1/M2/M3 priorities, mapped to product features. **Start here for any "add a page" task.**
 - `route-structure.md` — the App Router layout: `app/(marketing)`, `app/(app)`, `app/(admin)`, `app/(docs)`, `app/api/...`, route groups, parallel routes, intercepted routes.
 - `layouts.md` — the layout system: root layout, marketing layout, app layout, admin layout, docs layout. What wraps what.
 - `server-client-boundaries.md` — where we cut between Server Components and Client Components, and why. The default-vs-exception rule.

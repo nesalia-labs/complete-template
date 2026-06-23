@@ -13,3 +13,8 @@
 - [Competitor marketing playbook](reference-competitor-marketing.md) — per-competitor positioning, our differentiator, counter-message for the Buyer's Guide
 - [Copy angles](reference-copy-angles.md) — hero options, the Stain Lu quote, objection handling, surprise ammunition
 - [No half-built features (marketing)](feedback-marketing-no-half-built-features.md) — marketing copy must respect the Apple positioning; never overpromise
+- [Distribution playbook](distribution-playbook.md) — master playbook from adversarial research. 10 confirmed tactics, 3 open gaps (Reddit/LinkedIn/X need primary research). Launch calendar M0-M8. Primary source: 97 agents, 15 sources, 25 claims verified, 10 confirmed.
+- [Product Hunt launch](product-hunt-launch.md) — two-launch strategy (M4 + M8/Cloud), comment/upvote ratio 6:1, transparent maker comments, /showcase requirement before launch
+- [SEO & content strategy](seo-content-strategy.md) — comparison pages (/vs/supastarter, /vs/shipfast, /vs/makerkit), "agentic SaaS template" keyword cluster, 3 content pillars for v1
+- [Social media strategy](social-media-strategy.md) — ⚠️ research gap: Reddit/LinkedIn/X tactics unconfirmed. Working hypotheses, decision tree for channel prioritization, founding member social layer
+- [Competitive analysis](competitive-analysis.md) — updated from adversarial research. Feature comparison table, counter-messages per competitor, confirmed feature gaps
