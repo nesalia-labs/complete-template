@@ -1,2 +1,37 @@
 - [DeesseJS product overview](project-deessejs-overview.md) — wedge, stack, scope, current state for tech-lead work on the DeesseJS template product
 - [User role](user-role-product.md) — founder/PM of DeesseJS, French conversation, English docs, wants depth and direct recommendations
+- [Vercel 30-min changelog](reference-vercel-30min-changelog.md) — 2026-06-15, 800s→1800s on Node.js/Python, > 800s beta, Fluid Compute req
+- [Feasibility doc has stale 300s claim](project-deessejs-cloud-feasibility-outdated-assumption.md) — 2026-06-16 doc missed the changelog, Risk #5 obsolete
+- [Use `fresh` CLI for all web research](feedback-use-fresh-cli.md) — Exa.ai CLI, replaces built-in WebSearch/WebFetch which are unreliable
+- [Research community conventions before deciding](feedback-research-before-deciding.md) — for non-obvious tech choices, default to "fouille sur le web ce que font les autres" before recommending
+- [Package impl state vs docs (2026-06-22)](project-package-implementation-state.md) — api Sprint 1 done (NOT empty), database/auth/cache M0 mostly done; mail + 9 packages + 2 apps still empty
+- [oRPC envelope + Better Auth endpoint renames](project-orpc-better-auth-endpoints.md) — oRPC 1.14 wraps JSON returns under `json` key; Better Auth 1.6.19 renamed `/api/auth/session` → `/api/auth/get-session`
+- [api middleware folder structure](project-api-middleware-folder-structure.md) — single `src/middlewares/` with `hono/` and `orpc/` subfolders (do NOT reintroduce `src/middleware/` singular)
+- [api logging strategy](project-api-logging-strategy.md) — Hono built-in `logger()`, not pino/custom; zero per-request logger object in context
+- [api Better Auth org pattern](project-api-better-auth-org-pattern.md) — getFullOrganization + getActiveMemberRole wrapped in `auth-client.ts` (single cast); upstream Better Auth issue #4222
+- [Better Auth cookieCache workaround](project-better-auth-cookiecache-workaround.md) — asResponse:true + manual set-cookie; track PR #9667 for cleanup
+- [api AsyncLocalStorage pattern](project-api-async-local-storage-pattern.md) — requestContext ALS propagates requestId to oRPC error encoder outside the Hono chain
+- [Local code indexer landscape](project-local-code-indexing-landscape.md) — gortex (Apache-2.0, Go, baked GloVe) + denfry/codebase-index (Python, Claude Code plugin) lead for offline; zilliztech/claude-context and Sourcegraph ruled out; deep-dive notes on gortex subagent pattern and #70 limitation
+- [ntfy rich notifications](project-ntfy-rich-notifications.md) — 17 headers, 4 action types, sequence-ID live progress, Go templating for webhooks; user explicit: no Telegram/Discord, native Android only; test topic `deessejs_main`
+- [apps/lite workspace setup](project-apps-lite-workspace-setup.md) — nested pnpm workspace mirroring apps/template; v0.0.1 = Next.js scaffold, re-scoped from "post-v1 OSS lead magnet" to demo-first incremental build
+- [Mail stack decision](project-mail-stack-decision.md) — Resend 6.14 + react-email v6 unified; rejects react-mail / jsx-email / @react-email/components; react-email 5+ supports React 19.2 + Next 16
+- [packages/mail is implemented (2026-06-23 correction)](project-package-implementation-state.md) — was empty in 2026-06-22 snapshot, now full; ConsoleMailer URL-extraction gap noted
+- [Neon + Drizzle push gotchas (2026-06-23)](project-neon-drizzle-push-gotchas.md) — drop &channel_binding=require for postgres-js 3.4; never quote .env values from bash; --force to skip interactive prompt
+- [Base UI Button nativeButton gotcha (2026-06-23)](project-base-ui-nativebutton-gotcha.md) — `render={<Link/>}` requires explicit `nativeButton={false}` or dev warning every render
+- [Better Auth verify-email redirect default (2026-06-23)](project-better-auth-verify-email-redirect.md) — signUp.email without callbackURL defaults to "/" → silent drop on marketing page; always pass callbackURL: "/login?verified=1"
+- [ConsoleMailer HTML-entity gotcha (2026-06-23)](project-console-mailer-html-entity-gotcha.md) — extractLinks returns &amp; instead of &; browser URL bar keeps the escape, query string parsing breaks
+- [packages/mail architecture proposal](project-packages-mail-architecture.md) — supastarter pattern adapted: provider/ switch, templates/ registry, Wrapper.tsx; INCLUDES apps/email-preview (M1, sibling of web/cli/docs in template workspace)
+- [Better Auth send* hooks to wire](project-better-auth-send-hooks.md) — 4 hooks in packages/auth/src/auth.ts (resetPassword, verifyEmail, magicLink, OTP×3); idempotency keys; always `void sendMail()`
+- [react-email v6 unified reference](reference-react-email-v6-unified.md) — v6.6.3 current, 17 components extracted from .d.mts, Tailwind v4 CSS-first in 6.2.0, a11y defaults in 6.5.0
+- [shadcn/ui in monorepo reference](reference-shadcn-monorepo.md) — CLI v4 (March 2026) has first-class monorepo; apps/web + packages/ui + 2 components.json; Tailwind v4 needs empty `config`
+- [shadcn/ui monorepo pitfalls](reference-shadcn-monorepo-pitfalls.md) — 10 real-world bugs from GitHub issues; critical: `@source` order in globals.css, `transpilePackages` for Radix, no leftover v3 tailwind.config.ts
+- [shadcn/ui monorepo best practices](reference-shadcn-monorepo-best-practices.md) — theming (CSS vars + data-theme), Vitest+Radix polyfills, transpilePackages deep-dive, dep pinning, full packages/ui package.json + globals.css templates
+- [shadcn monorepo bootstrap plan (2026-06-23)](project-shadcn-monorepo-bootstrap-plan.md) — manual setup since `init --monorepo` requires empty project; 16-file checklist; new finding: `shadcn` npm package exports `tailwind.css` with Radix data-* variants
+- [shadcn final state (2026-06-23)](project-shadcn-final-state.md) — Base UI chosen by shadcn CLI; @source 4-up path trap; test page in page.tsx with Select + Dialog; 6 pitfalls documented in code comments
+- [Next.js route groups reference (2026-06-23)](reference-nextjs-route-groups.md) — `(group)` = org without URL impact; group layouts compose under root; full page reload between different root layouts; DeesseJS group map: (marketing)/(auth)/(app)/(system)
+- [Next.js dynamic routes reference (2026-06-23)](reference-nextjs-dynamic-routes.md) — async params/searchParams (Next 16 strict), PageProps utility, [param] vs [...slug] vs [[...slug]], generateStaticParams, build-time validation via Suspense
+- [Hono + Next.js typing issue (2026-06-23)](project-hono-vercel-typing-issue.md) — handle(app) typed incompatible with Next 15+ App Router; 4 PRs closed unmerged; cast required in route.ts
+- [M1 mail plan checkpoint (2026-06-22)](project-m1-mail-checkpoint.md) — research + 12 docs done, code scaffold next; order = packages/mail → apps/email-preview → wire auth.ts
+- [apps/web pages inventory (2026-06-23)](project-apps-web-pages-inventory.md) — pointer to canonical doc at documents/internal/architecture/03-web-app/pages.md; M1 = 27 elements; Hono mount is the critical blocker
+- [Resend SDK reference](reference-resend-sdk-details.md) — resend@6.14, Node SDK, 5 req/sec default, idempotencyKey, `react:` shortcut, Hono officially supported
+- [supastarter mailing pattern](reference-supastarter-mailing-pattern.md) — packages/mail + apps/mail-preview + provider switch + Wrapper + BaseMailProps; closest reference architecture
