@@ -1,4 +1,5 @@
 {
   "title": "Lite",
-  "root": true
+  "root": true,
+  "pages": ["index"]
 }
