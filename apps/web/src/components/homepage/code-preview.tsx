@@ -1,14 +1,26 @@
 import { FileText, Folder } from "lucide-react"
 
+import { CodeBlock } from "@workspace/ui/components/code-block"
+
+const EXAMPLE_CODE = `import { Button } from "@workspace/ui"
+
+export default function Home() {
+  return (
+    <Button>Get started</Button>
+  )
+}
+`
+
 /**
  * CodePreview — hero centerpiece of the DeesseJS landing page.
  *
- * A static IDE window mockup: mac-dot header, an "EXPLORER" file tree on the
- * left, and a syntax-highlighted code block on the right. No interactivity
- * — the goal is the visual "this is the codebase" signal in the first fold.
+ * A static IDE window mockup: mac-dot header + "monorepo" title on top, a
+ * 12-col grid body with a file tree on the left and a Shiki-rendered code
+ * block on the right. No interactivity — the goal is the visual "this is
+ * the codebase" signal in the first fold.
  *
- * Decorative only; the file tree and the code block are hardcoded to match
- * the monorepo inventory of the product.
+ * Decorative only; the file tree is hardcoded and the code block shows the
+ * same `app/page.tsx` snippet regardless. Replace `EXAMPLE_CODE` to update.
  */
 export function CodePreview() {
   return (
@@ -20,7 +32,9 @@ export function CodePreview() {
           <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
           <div className="h-3 w-3 rounded-full bg-green-500/80" />
         </div>
-        <div className="ml-4 font-mono text-xs text-muted-foreground">monorepo</div>
+        <div className="ml-4 font-mono text-xs text-muted-foreground">
+          monorepo
+        </div>
         <div className="ml-auto font-mono text-xs text-muted-foreground">
           apps/web/src/app/page.tsx
         </div>
@@ -35,72 +49,33 @@ export function CodePreview() {
             <div className="flex items-center gap-1.5 py-0.5">
               <Folder className="h-3.5 w-3.5 text-muted-foreground" /> apps/
             </div>
-            <div className="pl-4 flex items-center gap-1.5 py-0.5">
+            <div className="flex items-center gap-1.5 py-0.5 pl-4">
               <Folder className="h-3.5 w-3.5 text-muted-foreground" /> web/
             </div>
-            <div className="pl-8 flex items-center gap-1.5 py-0.5 text-muted-foreground">
+            <div className="flex items-center gap-1.5 py-0.5 pl-8 text-muted-foreground">
               <FileText className="h-3.5 w-3.5" /> page.tsx
             </div>
-            <div className="pl-8 flex items-center gap-1.5 py-0.5 text-muted-foreground">
+            <div className="flex items-center gap-1.5 py-0.5 pl-8 text-muted-foreground">
               <FileText className="h-3.5 w-3.5" /> layout.tsx
             </div>
-            <div className="pl-4 flex items-center gap-1.5 py-0.5 mt-1">
+            <div className="mt-1 flex items-center gap-1.5 py-0.5 pl-4">
               <Folder className="h-3.5 w-3.5 text-muted-foreground" /> cloud/
             </div>
-            <div className="flex items-center gap-1.5 py-0.5 mt-2">
+            <div className="mt-2 flex items-center gap-1.5 py-0.5">
               <Folder className="h-3.5 w-3.5 text-muted-foreground" /> packages/
             </div>
-            <div className="pl-4 flex items-center gap-1.5 py-0.5 text-muted-foreground">
+            <div className="flex items-center gap-1.5 py-0.5 pl-4 text-muted-foreground">
               <Folder className="h-3.5 w-3.5" /> ui/
             </div>
-            <div className="pl-4 flex items-center gap-1.5 py-0.5 text-muted-foreground">
+            <div className="flex items-center gap-1.5 py-0.5 pl-4 text-muted-foreground">
               <Folder className="h-3.5 w-3.5" /> config/
             </div>
           </div>
         </div>
 
-        {/* Code Editor */}
-        <div className="bg-background p-6 font-mono text-[13px] sm:text-sm leading-loose md:col-span-8 lg:col-span-9 overflow-x-auto">
-          <div className="text-muted-foreground">
-            <span className="mr-4 inline-block w-4 text-right opacity-50">1</span>
-            <span className="text-purple-400">import</span> {"{ Button }"}{" "}
-            <span className="text-purple-400">from</span>{" "}
-            <span className="text-green-400">"@workspace/ui"</span>
-          </div>
-          <div className="text-muted-foreground">
-            <span className="mr-4 inline-block w-4 text-right opacity-50">2</span>
-          </div>
-          <div className="text-muted-foreground">
-            <span className="mr-4 inline-block w-4 text-right opacity-50">3</span>
-            <span className="text-purple-400">export default function</span>{" "}
-            <span className="text-blue-400">Home</span>() {"{"}
-          </div>
-          <div className="text-muted-foreground">
-            <span className="mr-4 inline-block w-4 text-right opacity-50">4</span>
-            <span>{"  "}</span>
-            <span className="text-purple-400">return</span> (
-          </div>
-          <div className="text-foreground">
-            <span className="mr-4 inline-block w-4 text-right text-muted-foreground opacity-50">
-              5
-            </span>
-            <span>{"    "}</span>
-            <span className="text-gray-400">&lt;</span>
-            <span className="text-blue-400">Button</span>
-            <span className="text-gray-400">&gt;</span>Get started
-            <span className="text-gray-400">&lt;/</span>
-            <span className="text-blue-400">Button</span>
-            <span className="text-gray-400">&gt;</span>
-          </div>
-          <div className="text-muted-foreground">
-            <span className="mr-4 inline-block w-4 text-right opacity-50">6</span>
-            <span>{"  "})
-            </span>
-          </div>
-          <div className="text-muted-foreground">
-            <span className="mr-4 inline-block w-4 text-right opacity-50">7</span>
-            <span>{"}"}</span>
-          </div>
+        {/* Code Editor — Shiki-rendered via @workspace/ui CodeBlock */}
+        <div className="overflow-hidden md:col-span-8 lg:col-span-9">
+          <CodeBlock code={EXAMPLE_CODE} language="tsx" size="lg" />
         </div>
       </div>
     </div>
