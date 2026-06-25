@@ -325,7 +325,7 @@ export default function HomePage() {
             speed={0.5}
             edgeFade={0.25}
             transparent
-            style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+            style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, opacity: 0.2 }}
           />
 
           <div className={`relative z-10 ${bodyContainerClass} flex max-w-4xl flex-col items-center text-center`}>
