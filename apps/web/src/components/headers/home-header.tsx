@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Pricing", href: "#" },
   { label: "Changelog", href: "#" },
   { label: "Blog", href: "#" },
-  { label: "Docs", href: "#" },
+  { label: "Docs", href: "https://docs.deessejs.com" },
 ]
 
 /**
@@ -38,15 +38,30 @@ export function HomeHeader() {
             DeesseJS
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isExternal = link.href.startsWith("http")
+              const className =
+                "text-sm text-muted-foreground transition-colors hover:text-foreground"
+              return isExternal ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={className}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
           </nav>
         </div>
         <div className="flex items-center gap-2">
