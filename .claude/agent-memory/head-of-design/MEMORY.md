@@ -7,6 +7,11 @@
 - [Feedback Tailwind v4 @source](feedback-tailwind-v4-monorepo-source.md) — @source directive required after @import tailwindcss for monorepo styles
 - [Feedback never run dev](feedback-never-run-dev-server.md) — never launch dev servers, note issues only
 - [Feedback shadcn border token subtle](feedback-shadcn-border-token-subtle.md) — default --border has Lc ~10 contrast, use border-foreground/15 for page frames
+- [Feedback Base UI Accordion API](feedback-base-ui-accordion-api.md) — shadcn v4 base-nova uses @base-ui/react/accordion, no type="single" collapsible prop
+- [Feedback glued grid pattern](feedback-glued-grid-pattern.md) — homepage grid sections: no gaps, no section padding, no inter-subsection padding; cards get rounded-none ring-0 + divide-x/divide-y
+- [Feedback PixelBlast positioning](feedback-pixel-blast-positioning.md) — color must match bg brightness; pass position via inline style, not wrapper div with h-full
+- [Feedback Pierre grid layout](feedback-pierre-grid-layout.md) — @pierre/trees + @pierre/diffs hosts need h-full min-h-0 in grid cells, default block children collapse to 0px
+- [Feedback Pierre web-components side-effect](feedback-pierre-web-components-side-effect.md) — Pierre React components auto-register custom elements via transitive imports; explicit @pierre/trees/web-components only for SSR/non-React usage
 - [Stack technique](tech-stack.md) — Tailwind CSS v4 + shadcn/ui comme fondation du design system
 - [Outil fresh CLI](reference-fresh-cli.md) — recherche/fetch web via Exa.ai, dispo dans le terminal
 - [Google DESIGN.md](reference-google-design-md.md) — format open standard de spec UI (Google Labs/Stitch), lisible humain + IA
