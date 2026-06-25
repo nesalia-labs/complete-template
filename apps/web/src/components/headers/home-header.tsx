@@ -9,9 +9,9 @@ import { Button } from "@workspace/ui/components/ui/button"
 const containerClass = "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8"
 
 const navLinks = [
-  { label: "Pricing", href: "#" },
-  { label: "Changelog", href: "#" },
-  { label: "Blog", href: "#" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Changelog", href: "/changelog" },
+  { label: "Blog", href: "/blog" },
   { label: "Docs", href: "https://docs.deessejs.com" },
 ]
 
