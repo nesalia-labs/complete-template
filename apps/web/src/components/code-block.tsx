@@ -23,7 +23,8 @@ const sizeClasses = {
  * matching the convention of marketing hero code blocks.
  *
  * Wrap in a parent with `overflow-hidden` if you want the border to clip
- * to your container's radius.
+ * to your container's radius. Forces `text-left` on the root to survive
+ * `text-center` parents.
  */
 export async function CodeBlock({
   code,
