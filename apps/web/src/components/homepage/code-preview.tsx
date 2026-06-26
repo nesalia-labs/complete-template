@@ -1,6 +1,6 @@
 import { FileText, Folder } from "lucide-react"
 
-import { CodeBlock } from "#components/code-block"
+import { CodeBlock } from "@/components/code-block"
 
 const EXAMPLE_CODE = `import { Button } from "@workspace/ui"
 

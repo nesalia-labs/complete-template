@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Quote } from "lucide-react"
 
-import { SignupCard } from "#components/auth/signup-card"
+import { SignupCard } from "@/components/auth/signup-card"
 
 export const metadata: Metadata = {
   title: "Get started — DeesseJS",

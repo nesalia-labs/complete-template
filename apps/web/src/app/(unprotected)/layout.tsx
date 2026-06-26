@@ -1,4 +1,4 @@
-import { HomeHeader } from "#components/headers/home-header"
+import { HomeHeader } from "@/components/headers/home-header"
 
 /**
  * Layout for public routes — /changelog, /blog, /login, /signup,

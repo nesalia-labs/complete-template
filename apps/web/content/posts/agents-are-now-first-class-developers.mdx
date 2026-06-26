@@ -1,0 +1,46 @@
+---
+title: Agents are now first-class developers
+description: Why DeesseJS treats AI agents as the primary users — not the secondary ones — and what that means for the architecture of the template.
+date: 2026-06-26
+tags: [agentic, architecture, positioning]
+author: dpereira
+---
+
+# Agents are now first-class developers
+
+When we started DeesseJS, the goal was clear: build a SaaS template that
+treats AI agents as the primary users. Not as a power-user feature, not as
+a developer-experience nicety, but as the architectural center of gravity.
+
+## What changed
+
+For the last three years, AI tooling has focused on **helping developers
+write code faster**. Autocomplete, chat, code review. The pattern is
+consistent: a human drives, AI assists.
+
+That pattern is breaking. Agents now run multi-step workflows against
+production systems. They don't just suggest code — they call APIs, manage
+state, and ship features while the human sleeps.
+
+## What this means for a template
+
+A template optimized for AI-assisted development has different shapes than
+one optimized for AI-driven development:
+
+- **Every surface has a tool.** Auth, billing, jobs, storage, notifications,
+  API. Agents don't read your docs to figure out how to wire Stripe — they
+  call a tool that does it for them.
+- **Type contracts over documentation.** A typed RPC layer (oRPC) is more
+  useful to an agent than a docs page. The agent compiles against the type
+  contract; humans skim docs.
+- **RSS over push notifications.** Agents subscribe to changelog feeds via
+  RSS. No vendor lock-in, no notification fan-out, no email digest.
+
+## The wedge
+
+The SaaS template that never sleeps is not a slogan. It's an architectural
+commitment: every primitive in DeesseJS is shaped to be called by an agent.
+The marketing site you're reading right now is built on the same principle.
+
+If your agents don't save you three months of development work in the first
+14 days, email us for a full refund.

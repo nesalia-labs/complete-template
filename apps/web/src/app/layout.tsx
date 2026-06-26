@@ -17,9 +17,17 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://deessejs.com"),
   title: "DeesseJS",
   description:
     "The SaaS template that never sleeps. Ship your agents as your developers.",
+  openGraph: {
+    type: "website",
+    siteName: "DeesseJS",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 }
 
 export default function RootLayout({

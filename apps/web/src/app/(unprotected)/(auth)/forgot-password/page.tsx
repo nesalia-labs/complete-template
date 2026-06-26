@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Quote } from "lucide-react"
 
-import { ForgotPasswordCard } from "#components/auth/forgot-password-card"
+import { ForgotPasswordCard } from "@/components/auth/forgot-password-card"
 
 export const metadata: Metadata = {
   title: "Reset password — DeesseJS",

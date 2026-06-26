@@ -1,0 +1,43 @@
+---
+title: Why we picked content-collections for the blog
+description: A short note on the engine choice for the DeesseJS marketing blog — and why we rejected Velite, Fumadocs-for-blog, and the dead options.
+date: 2026-06-26
+tags: [engineering, blog, content-collections]
+author: dpereira
+---
+
+# Why content-collections
+
+The marketing site blog is table-stakes — but the engine choice behind it is
+load-bearing. We evaluated three options in 2026:
+
+1. **content-collections** (chosen)
+2. **Velite** (rejected)
+3. **fumadocs-mdx standalone** (rejected for blog)
+
+## Why not Velite
+
+Velite has arguably better DX (`s.metadata()`, `s.isodate()`, pre-computed
+reading time). But:
+
+- Single-maintainer pre-1.0
+- Turborepo / incremental build / Next.js plugin are explicitly **not done**
+  on the official roadmap
+- Velite uses Zod 4 — major-version mismatch with the rest of the stack
+
+## Why not fumadocs-mdx
+
+Fumadocs is excellent for documentation. The blog is a different surface:
+marketing copy, not API reference. Coupling them forces an unwanted
+architecture on buyers.
+
+## Why content-collections
+
+- Sponsor-backed, multi-framework
+- Same engine supastarter ships (validation by the closest competitor)
+- Next 16 first-class since `0.2.9` (December 2025)
+- Single config file = entire engine surface → trivial delete-test
+- Zod-native schema
+
+If a buyer wants Velite's DX, swapping engines is a 4-8 hour migration.
+Documented in the docs.

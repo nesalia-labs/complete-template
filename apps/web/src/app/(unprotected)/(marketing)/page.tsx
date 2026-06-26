@@ -33,10 +33,10 @@ import {
   SiTypescript,
 } from "@icons-pack/react-simple-icons"
 
-import { HomeFooter } from "#components/footers/home-footer"
-import { HomeHeader } from "#components/headers/home-header"
-import PixelBlast from "#components/homepage/pixel-blast"
-import { CodePreview } from "#components/homepage/code-preview"
+import { HomeFooter } from "@/components/footers/home-footer"
+import { HomeHeader } from "@/components/headers/home-header"
+import PixelBlast from "@/components/homepage/pixel-blast"
+import { CodePreview } from "@/components/homepage/code-preview"
 
 import Link from "next/link"
 
