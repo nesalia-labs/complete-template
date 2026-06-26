@@ -301,8 +301,6 @@ export default function HomePage() {
 
   return (
     <div className="flex min-h-screen flex-col selection:bg-foreground selection:text-background">
-      <HomeHeader />
-
       <main className="flex-1 border-x border-border/40 mx-auto w-full max-w-[1400px]">
         {/* HERO SECTION */}
         <section className="relative flex min-h-[calc(100vh-3.5rem)] items-center justify-center overflow-hidden py-24">
@@ -349,8 +347,9 @@ export default function HomePage() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Button
                 size="lg"
-                className="h-12 rounded-full px-8 text-base font-semibold shadow-md transition-transform hover:scale-105"
-                render={<a href="#pricing" className="inline-flex items-center gap-2" />}
+                className="h-12 gap-2 rounded-full px-8 text-base font-semibold shadow-md transition-transform hover:scale-105"
+                nativeButton={false}
+                render={<a href="#pricing" />}
               >
                 Start building
                 <ArrowRight className="h-4 w-4" />
@@ -358,8 +357,9 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-12 rounded-full px-8 text-base font-medium shadow-sm backdrop-blur-md"
-                render={<Link href="/docs" className="inline-flex items-center gap-2" />}
+                className="h-12 gap-2 rounded-full px-8 text-base font-medium shadow-sm backdrop-blur-md"
+                nativeButton={false}
+                render={<Link href="/docs" />}
               >
                 <BookOpen className="h-4 w-4" />
                 Read the docs
@@ -573,6 +573,7 @@ export default function HomePage() {
                     <Button
                       className={`w-full rounded-full h-12 font-semibold ${tier.highlighted ? "shadow-md hover:scale-[1.02] transition-transform" : ""}`}
                       variant={tier.highlighted ? "default" : "outline"}
+                      nativeButton={false}
                       render={<a href="#founding-member" />}
                     >
                       {tier.cta}
@@ -635,8 +636,9 @@ export default function HomePage() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Button
                 size="lg"
-                className="h-12 rounded-full px-8 text-base font-semibold shadow-md transition-transform hover:scale-105"
-                render={<a href="#pricing" className="inline-flex items-center gap-2" />}
+                className="h-12 gap-2 rounded-full px-8 text-base font-semibold shadow-md transition-transform hover:scale-105"
+                nativeButton={false}
+                render={<a href="#pricing" />}
               >
                 Get DeesseJS
                 <ArrowRight className="h-4 w-4" />
@@ -644,8 +646,9 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-12 rounded-full px-8 text-base font-medium shadow-sm backdrop-blur-md"
-                render={<Link href="/docs" className="inline-flex items-center gap-2" />}
+                className="h-12 gap-2 rounded-full px-8 text-base font-medium shadow-sm backdrop-blur-md"
+                nativeButton={false}
+                render={<Link href="/docs" />}
               >
                 Read the docs
               </Button>
