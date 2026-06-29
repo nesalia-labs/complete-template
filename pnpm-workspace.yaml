@@ -1,5 +1,5 @@
 packages:
   - 'apps/web'
-  - 'apps/cloud'
+  - 'apps/app'
   - 'apps/docs'
   - 'packages/*'
