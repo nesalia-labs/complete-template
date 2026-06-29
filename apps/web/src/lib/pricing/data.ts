@@ -1,5 +1,6 @@
 import type {
   ComparisonBlock,
+  FounderOffer,
   Guarantee,
   PricingFaq,
   ProofItem,
@@ -7,71 +8,94 @@ import type {
 } from "./types"
 
 /**
- * Tier data — migrated from the inline `tiers` const previously hardcoded
- * in app/(unprotected)/(marketing)/page.tsx. Single source of truth for
- * both the home-page compact teaser and the full /pricing page tier grid.
+ * Tier data — 3 tiers: Lite (free lead magnet), Starter (solo dev),
+ * Team (agency / multi-project). Updated 2026-06-29 to remove Pro and
+ * simplify to the lead-magnet → solo → agency scope.
+ *
+ * `highlighted` removed — with 3 tiers the visitor doesn't need a
+ * default selection. Visual hierarchy comes from the tier names + scope
+ * copy instead.
  */
 export const tiers: Tier[] = [
   {
-    name: "Starter",
-    description: "For solo founders shipping their first SaaS.",
-    regularPrice: 399,
-    founderPrice: 249,
+    name: "Lite",
+    description: "MIT, lead magnet, demo.",
+    regularPrice: 0,
+    founderPrice: 0,
     features: [
-      "Auth (email + OAuth + passkeys + 2FA)",
-      "Billing (Stripe, per-seat + metered usage)",
+      "Auth (email + OAuth + passkeys)",
+      "Billing (Stripe subscriptions)",
+      "AGENTS.md + agent rules",
+      "MIT licensed — fork freely",
+      "Community Discord",
+    ],
+    cta: "Get Lite",
+    highlighted: false,
+    slug: "lite",
+    freeTier: true,
+    githubUrl: "https://github.com/nesalia-inc/deessejs-lite",
+    cardVariant: "dashed",
+  },
+  {
+    name: "Starter",
+    description: "1 project, 1 dev, full stack.",
+    regularPrice: 299,
+    founderPrice: 299,
+    features: [
+      "Everything in Lite, plus:",
+      "Database (Postgres + Drizzle)",
+      "Backend (Hono + oRPC typed RPC)",
+      "Storage (R2 / S3 compatible)",
       "Background jobs (Trigger.dev + QStash)",
-      "Storage (Cloudflare R2)",
-      "API server (Hono + oRPC + SDK)",
-      "AGENTS.md + AI coding agent rules",
-      "Fumadocs-powered docs site",
-      "Tool-calling agent primitives",
+      "Docs site (Fumadocs)",
+      "AI agent primitives + AGENTS.md",
       "Lifetime updates",
     ],
     cta: "Get Starter",
     highlighted: false,
     slug: "starter",
-  },
-  {
-    name: "Pro",
-    description: "For teams shipping a real product to real users.",
-    regularPrice: 599,
-    founderPrice: 499,
-    features: [
-      "Everything in Starter, plus:",
-      "Admin dashboard + user management",
-      "Blog + content hub (MDX)",
-      "Multi-language support (i18n)",
-      "End-to-end testing (Playwright)",
-      "Figma UI Kit",
-      "Email templates (Resend + React Email)",
-      "Monitoring (Sentry integration)",
-      "Priority email support",
-    ],
-    cta: "Get Pro",
-    highlighted: true,
-    slug: "pro",
+    buyUrl: "mailto:founders@deessejs.com?subject=Get%20DeesseJS%20Starter",
   },
   {
     name: "Team",
-    description: "For agencies and teams shipping multiple SaaS.",
-    regularPrice: 999,
+    description: "Multi-project, seats, agency scope.",
+    regularPrice: 899,
     founderPrice: 899,
     features: [
-      "Everything in Pro, plus:",
-      "White-label / rebrand rights",
-      "Private Discord community",
-      "AI Agent Workflow Library",
-      "Priority support (24h response)",
-      "1 onboarding session (60 min)",
+      "Everything in Starter, plus:",
+      "Up to 10 projects",
+      "10 seats included",
       "Multi-tenant architecture",
-      "Per-tenant LLM metering dashboard",
+      "White-label / rebrand rights",
+      "AI Agent Workflow Library",
+      "Private Discord community",
+      "Priority support (24h SLA)",
     ],
     cta: "Get Team",
     highlighted: false,
     slug: "team",
+    buyUrl: "mailto:founders@deessejs.com?subject=Get%20DeesseJS%20Team",
   },
 ]
+
+/**
+ * Founding-member offer — shown as the FounderBanner at the top of the
+ * pricing page. Limited to 50 customers total; closes July 31, 2026.
+ *
+ * Updated 2026-06-29: removed $99 reference after pricing was simplified
+ * to 3 tiers (no Pro). The banner now signals "limited cohort" without
+ * claiming a specific tier price.
+ */
+export const founderOffer: FounderOffer = {
+  label: "Founding-member cohort",
+  regularPrice: 0,
+  price: 0,
+  unit: "limited to the first 50 customers",
+  body: "Lock in founding-member pricing. After July 31, 2026, prices go up.",
+  cap: 50,
+  claimed: 37,
+  closesAt: "2026-07-31",
+}
 
 /**
  * 14-day money-back guarantee.

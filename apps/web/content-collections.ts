@@ -56,7 +56,17 @@ const posts = defineCollection({
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     tags: z.array(z.string()).default([]),
-    author: z.string().min(1),
+    /**
+     * Multi-author support (added 2026-06-29):
+     *   - `author` (legacy, optional) — single author handle, kept for
+     *     backward compat with existing MDX files.
+     *   - `authors` (new, defaults to []) — array of author handles.
+     *     When both are absent, the transform throws. When `authors` is
+     *     empty and `author` is set, the transform normalizes to
+     *     `authors: [author]` so downstream components have a single shape.
+     */
+    author: z.string().min(1).optional(),
+    authors: z.array(z.string().min(1)).default([]),
     draft: z.boolean().default(false),
     cover: z.string().optional(),
     scheduled: z.string().datetime().optional(),
@@ -75,16 +85,32 @@ const posts = defineCollection({
       return context.skip(`scheduled for ${post.scheduled}`);
     }
 
-    // Resolve author FK (decoupled from Better Auth — see spec 15.3).
-    const author = context.documents(authors).find(
-      (a) => a.handle === post.author,
-    );
-    if (!author) {
+    // Resolve authors — accept both `authors: [...]` (new) and `author: "..."`
+    // (legacy single). Either path must produce a non-empty array.
+    const handles = post.authors.length > 0
+      ? post.authors
+      : post.author
+        ? [post.author]
+        : []
+    if (handles.length === 0) {
       throw new Error(
-        `Post "${post.title}" references unknown author "${post.author}". ` +
-          `Add content/authors/${post.author}.md or fix the frontmatter.`,
+        `Post "${post.title}" has no author. Add \`author: <handle>\` or ` +
+          `\`authors: [handle, ...]\` to its frontmatter.`,
       );
     }
+
+    const resolvedAuthors = handles.map((handle) => {
+      const author = context.documents(authors).find(
+        (a) => a.handle === handle,
+      );
+      if (!author) {
+        throw new Error(
+          `Post "${post.title}" references unknown author "${handle}". ` +
+            `Add content/authors/${handle}.md or fix the frontmatter.`,
+        );
+      }
+      return author;
+    });
 
     // Compute slug from filename (strip directory + extension).
     const slug = post._meta.filePath
@@ -114,7 +140,10 @@ const posts = defineCollection({
       slug,
       url: `/blog/${slug}`,
       readingTime: Math.max(1, Math.round(stats.minutes)),
-      author,
+      authors: resolvedAuthors,
+      // Keep `author` set to the primary (first) author for backward compat
+      // with components that haven't migrated yet.
+      author: resolvedAuthors[0],
       mdxCode,
     };
   },

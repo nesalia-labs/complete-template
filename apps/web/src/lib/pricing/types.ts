@@ -11,7 +11,7 @@ export interface Tier {
   name: string
   /** One-line positioning. e.g. "For solo founders shipping their first SaaS." */
   description: string
-  /** Regular price in USD (lifetime, one-time). */
+  /** Regular price in USD (lifetime, one-time). 0 = free tier. */
   regularPrice: number
   /** Founder-price in USD. Shown with line-through regular price above. */
   founderPrice: number
@@ -23,8 +23,18 @@ export interface Tier {
   highlighted: boolean
   /** Anchor slug for in-page CTAs. */
   slug?: string
-  /** External buy URL. If absent, the CTA anchors to `#${slug}`. */
+  /** External buy URL. If absent, the CTA falls back to a mailto. */
   buyUrl?: string
+  /**
+   * Marks this tier as free (e.g. DeesseJS Lite). Hides the price block
+   * and renders a "Free forever" label instead. The CTA points to a
+   * `githubUrl` rather than the mailto fallback.
+   */
+  freeTier?: boolean
+  /** GitHub URL — only used when `freeTier` is true. */
+  githubUrl?: string
+  /** Visual variant for the tier card. "solid" by default, "dashed" for free tier. */
+  cardVariant?: "solid" | "dashed"
 }
 
 /**

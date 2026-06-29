@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, Sparkles } from "lucide-react";
 
-import { ReleaseEntry } from "@/components/blog/release-entry";
+import { Button } from "@workspace/ui/components/ui/button";
+
+import { ReleaseGroupView } from "@/components/blog/release-group";
 import { getAllReleases } from "@/lib/blog/releases";
+import { groupReleasesByMinor } from "@/lib/blog/types";
 
 export const metadata: Metadata = {
   title: "Changelog — DeesseJS",
@@ -17,6 +22,8 @@ export const metadata: Metadata = {
 
 export default function ChangelogPage() {
   const releases = getAllReleases();
+  const groups = groupReleasesByMinor(releases);
+  const latest = releases[0];
 
   return (
     <section className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -36,14 +43,57 @@ export default function ChangelogPage() {
         </p>
       </header>
 
+      {/* Latest callout — surfaces the most recent release prominently.
+          Per Linear changelog (gold standard): the latest entry deserves
+          a distinct visual treatment to answer "what's new?". */}
+      {latest ? (
+        <aside className="mb-10 rounded-xl border border-foreground/30 bg-foreground p-5 text-background sm:p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <Sparkles className="size-4" aria-hidden />
+                <p className="font-mono text-xs uppercase tracking-widest text-background/70">
+                  Latest release
+                </p>
+              </div>
+              <p className="mt-2 font-mono text-sm text-background/70">
+                v{latest.version} · {latest.date}
+              </p>
+              <h2 className="mt-1 text-balance text-xl font-semibold tracking-tight sm:text-2xl">
+                {latest.title}
+              </h2>
+              {latest.description ? (
+                <p className="mt-2 text-pretty text-sm text-background/70">
+                  {latest.description}
+                </p>
+              ) : null}
+            </div>
+            <Button
+              size="sm"
+              variant="outline"
+              className="shrink-0 gap-1.5 border-background/30 bg-background px-4 text-xs font-semibold text-foreground hover:bg-background/90"
+              nativeButton={false}
+              render={<Link href={latest.url} />}
+            >
+              Read release
+              <ArrowRight className="size-3" aria-hidden />
+            </Button>
+          </div>
+        </aside>
+      ) : null}
+
       {releases.length === 0 ? (
         <p className="text-muted-foreground">
           No releases yet. Subscribe to the RSS feed to be notified when we ship.
         </p>
       ) : (
-        <div className="space-y-6">
-          {releases.map((release) => (
-            <ReleaseEntry key={release.slug} release={release} />
+        <div>
+          {groups.map((group, i) => (
+            <ReleaseGroupView
+              key={group.label}
+              group={group}
+              isFirst={i === 0}
+            />
           ))}
         </div>
       )}

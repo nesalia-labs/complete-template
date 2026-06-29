@@ -1,26 +1,12 @@
 import {
   Activity,
   ArrowRight,
-  Bell,
   BookOpen,
-  Bot,
   Check,
-  Code2,
-  Database,
-  FileText,
-  Folder,
-  GitBranch,
-  Globe,
-  Layers,
+  CreditCard,
   Lock,
-  Mail,
-  MessageSquare,
-  Rocket,
-  Search,
-  Server,
-  Settings,
-  Shield,
-  Webhook,
+  Terminal,
+  Users,
   Zap,
 } from "lucide-react"
 import {
@@ -35,8 +21,15 @@ import {
 
 import { HomeFooter } from "@/components/footers/home-footer"
 import { HomeHeader } from "@/components/headers/home-header"
+import { AppShell } from "@/components/homepage/app-shell"
+import { BentoSection } from "@/components/homepage/bento-section"
+import { BillingContent } from "@/components/homepage/billing-content"
+import { DXContent } from "@/components/homepage/dx-content"
+import { ObservabilityContent } from "@/components/homepage/observability-content"
+import { UsersContent } from "@/components/homepage/users-content"
 import PixelBlast from "@/components/homepage/pixel-blast"
 import { CodePreview } from "@/components/homepage/code-preview"
+import { WhyDifferentSection } from "@/components/marketing/why-different-section"
 
 import { tiers } from "@/lib/pricing/data"
 
@@ -61,106 +54,11 @@ import {
 
 // --- DONNÉES STATIQUES ---
 
-const heroFeatures = [
-  {
-    icon: Rocket,
-    title: "Authentication",
-    description: "Email, OAuth, and passkeys with session management and 2FA, wired to a typed RPC layer so the frontend stays in sync without codegen.",
-  },
-  {
-    icon: Bot,
-    title: "Database & ORM",
-    description: "Postgres with Drizzle for type-safe queries and zero runtime overhead. Schemas, migrations, and seed scripts are wired from day one.",
-  },
-  {
-    icon: Code2,
-    title: "Backend API",
-    description: "Hono + oRPC gives you an end-to-end typed API without the codegen step. Add a new procedure and the client gets full IntelliSense.",
-  },
-  {
-    icon: Layers,
-    title: "Design system",
-    description: "shadcn/ui primitives on semantic tokens, with dark mode, Geist-aligned typography, and a Tailwind v4 setup you can extend.",
-  },
-]
-
-const standardFeatures = [
-  {
-    icon: Shield,
-    title: "Authentication",
-    description: "Email, OAuth, passkeys, and magic links with 2FA and per-tenant session policies.",
-  },
-  {
-    icon: Database,
-    title: "Database",
-    description: "Postgres with Drizzle ORM, migrations, and seed scripts wired from day one.",
-  },
-  {
-    icon: Server,
-    title: "Backend",
-    description: "Hono + oRPC end-to-end typed API with permissions, rate limiting, and OpenAPI specs.",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    description: "Resend + React Email templates with a live preview app for local development.",
-  },
-  {
-    icon: Folder,
-    title: "Storage",
-    description: "S3-compatible providers (R2, AWS, MinIO) with presigned uploads and access helpers.",
-  },
-  {
-    icon: GitBranch,
-    title: "Git integration",
-    description: "GitHub and GitLab webhooks with signed payloads and event normalization.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Messaging",
-    description: "In-app, email, and push notifications behind a unified delivery API.",
-  },
-  {
-    icon: Webhook,
-    title: "Webhooks",
-    description: "Outbound dispatcher with retries and dead-letter handling, plus inbound verification helpers.",
-  },
-  {
-    icon: Bell,
-    title: "Notifications",
-    description: "Multi-channel delivery with per-user preferences, quiet hours, and read state.",
-  },
-  {
-    icon: Activity,
-    title: "Observability",
-    description: "Logs, metrics, and traces wired through OpenTelemetry-compatible exporters.",
-  },
-  {
-    icon: Lock,
-    title: "Security",
-    description: "Row-level security, encryption at rest, and secrets management by default.",
-  },
-  {
-    icon: Globe,
-    title: "i18n",
-    description: "Multi-language support with typed locale files and a translation workflow.",
-  },
-  {
-    icon: FileText,
-    title: "Docs",
-    description: "Fumadocs-powered site with full-text search, MDX, and AI-assisted actions.",
-  },
-  {
-    icon: Search,
-    title: "Search",
-    description: "Full-text and faceted search backed by Postgres or your preferred provider.",
-  },
-  {
-    icon: Settings,
-    title: "Settings",
-    description: "Per-tenant configuration with type-safe defaults and admin overrides.",
-  },
-]
+// The previous 4-card hero tier + 15-card standard tier were removed on
+// 2026-06-29 and replaced with a single capability pillar (claim +
+// AppShell + UsersContent). See the FEATURES SECTION comment below.
+// TODO: add 7 more pillars (Data, Backend, Comms, Billing, Storage,
+// Observability, DX) with their own content variants.
 
 const faqs = [
   {
@@ -197,38 +95,12 @@ const faqs = [
   },
 ]
 
-const whyChoose = [
-  {
-    icon: Rocket,
-    title: "Ship in days, not months",
-    description: "Auth, billing, and infra are wired from day one. Skip the boilerplate and focus on the part of the product that actually matters.",
-  },
-  {
-    icon: Bot,
-    title: "Built for the agentic era",
-    description: "First-class support for Claude Code, Cursor, and Codex. AGENTS.md, typed RPC, and tool primitives that agents can call directly.",
-  },
-  {
-    icon: Shield,
-    title: "Battle-tested architecture",
-    description: "Patterns proven across hundreds of SaaS products. Multi-tenancy, billing, and observability wired in from the first commit.",
-  },
-  {
-    icon: Code2,
-    title: "Own every line of code",
-    description: "Full source access, no vendor lock-in. Deploy on Vercel, Docker, or your own infrastructure — your codebase, your call.",
-  },
-  {
-    icon: Lock,
-    title: "Type-safe end-to-end",
-    description: "Hono + oRPC + Drizzle give you a fully typed stack. Catch errors at compile time, not in production after a deploy.",
-  },
-  {
-    icon: GitBranch,
-    title: "Continuously maintained",
-    description: "Regular updates with the latest framework versions, security patches, and new integrations. Lifetime updates, no recurring fees.",
-  },
-]
+// "Why choose" section was extracted on 2026-06-26 into
+// apps/web/src/components/marketing/why-different-section.tsx
+// (see lib/marketing/why-different.ts for the data). The previous
+// 6-card generic grid answered 4 different questions at once; the
+// new 3-card section answers ONE (vs alternatives) with verifiable
+// claims.
 
 // --- PAGE PRINCIPALE ---
 
@@ -352,75 +224,192 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Hero tier — 2 cols × 2 rows = 4 cells, glued Vercel style */}
-            <div className="grid divide-y divide-border/40 border border-border/40 bg-card/50 md:grid-cols-2 md:divide-x overflow-hidden rounded-2xl shadow-sm">
-              {heroFeatures.map((feature) => (
-                <div key={feature.title} className="group relative flex flex-col p-8 transition-colors hover:bg-muted/20">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-background shadow-sm">
-                    <feature.icon className="size-5 text-foreground" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold tracking-tight text-foreground">
-                    {feature.title}
-                  </h3>
-                  <p className="mb-6 flex-1 text-base leading-relaxed text-muted-foreground">
-                    {feature.description}
-                  </p>
-                  <Button variant="link" className="mt-auto inline-flex h-auto w-fit items-center gap-1 p-0 text-sm font-medium text-foreground">
-                    Explore feature
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
+            {/* Capability pillar — proof of concept (2026-06-29)
+                Replaces the previous hero tier (4 cards) + standard tier (15 cards)
+                grid that was redundant with "Why DeesseJS is different" and
+                showed generic lucide icons instead of the actual product.
+
+                Pattern: AppShell + Content variant from Sophie's flowline repo.
+                Each pillar pairs a strong claim with a CSS-built mini admin page
+                showing what the buyer will actually ship.
+
+                TODO: add 7 more pillars (Data, Backend, Comms, Billing, Storage,
+                Observability, DX) — same AppShell, different content variants. */}
+            <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+              {/* Claim side */}
+              <div>
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/40 bg-background">
+                  <Users className="size-5 text-foreground" aria-hidden />
                 </div>
-              ))}
+                <h3 className="mb-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                  Auth, the admin you actually ship.
+                </h3>
+                <p className="text-pretty text-base leading-relaxed text-muted-foreground">
+                  Email, OAuth, passkeys, and 2FA wired to a typed RPC layer.
+                  You get the full Users page — search, roles, invites, status —
+                  on day one. No auth boilerplate, no separate admin to build.
+                </p>
+                <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Typed RPC, not REST — agents call the surface directly
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Multi-tenant sessions, per-org roles
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Invite flow with email + magic link
+                  </li>
+                </ul>
+              </div>
+
+              {/* Mockup side */}
+              <div>
+                <AppShell active="users">
+                  <UsersContent />
+                </AppShell>
+              </div>
             </div>
 
-            {/* Standard tier — 3 cols × 5 rows = 15 cells */}
-            <div className="mt-12 grid divide-y divide-border/40 border border-border/40 bg-card/50 md:grid-cols-2 md:divide-x lg:grid-cols-3 overflow-hidden rounded-2xl shadow-sm">
-              {standardFeatures.map((feature) => (
-                <div key={feature.title} className="group flex flex-col p-6 transition-colors hover:bg-muted/20">
-                  <div className="mb-3 flex items-center gap-3">
-                    <feature.icon className="size-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-                    <h3 className="text-base font-semibold tracking-tight text-foreground">
-                      {feature.title}
-                    </h3>
-                  </div>
-                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                    {feature.description}
-                  </p>
-                  <Button variant="link" className="mt-auto inline-flex h-auto w-fit items-center gap-1 self-start rounded-none p-0 text-sm font-medium text-foreground">
-                    See more
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                  </Button>
+            {/* Billing pillar — proof of concept for the "non-table" content variant.
+                Reuses AppShell with active="billing". Alternated layout (mockup on
+                the left, claim on the right) per Sophie's reversed pattern. */}
+            <div className="mt-24 grid gap-12 lg:grid-cols-2 lg:items-center">
+              {/* Mockup side (alternated to left) */}
+              <div className="lg:order-1">
+                <AppShell active="billing">
+                  <BillingContent />
+                </AppShell>
+              </div>
+
+              {/* Claim side (alternated to right) */}
+              <div className="lg:order-2">
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/40 bg-background">
+                  <CreditCard className="size-5 text-foreground" aria-hidden />
                 </div>
-              ))}
+                <h3 className="mb-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                  Billing, the way Stripe would have built it.
+                </h3>
+                <p className="text-pretty text-base leading-relaxed text-muted-foreground">
+                  Subscriptions, invoices, MRR — wired with Stripe under the hood.
+                  You get the full revenue dashboard on day one. Per-seat, metered,
+                  flat-rate — all supportable through one typed RPC surface.
+                </p>
+                <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Stripe Checkout + Customer Portal pre-wired
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Typed subscription state on the client (no webhooks to babysit)
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Per-tenant invoices, one query away
+                  </li>
+                </ul>
+              </div>
             </div>
+
+            {/* Observability pillar — third proof of concept. Alternated back to
+                left/right (claim left, mockup right) to break the rhythm.
+                Demonstrates the ScrollArea primitive (added 2026-06-29) and
+                inline SVG bar charts (no Recharts dep). */}
+            <div className="mt-24 grid gap-12 lg:grid-cols-2 lg:items-center">
+              {/* Claim side */}
+              <div>
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/40 bg-background">
+                  <Activity className="size-5 text-foreground" aria-hidden />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                  Logs and metrics, shipped together.
+                </h3>
+                <p className="text-pretty text-base leading-relaxed text-muted-foreground">
+                  OpenTelemetry-compatible exporters wired through day one.
+                  Tail logs by request ID, drill from a 5xx alert to the exact
+                  handler. No agent glue, no separate Datadog bill.
+                </p>
+                <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Logs, metrics, traces — same surface, same query
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Per-tenant retention, exportable on request
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Agent-callable: query the last 50 errors as a typed RPC
+                  </li>
+                </ul>
+              </div>
+
+              {/* Mockup side */}
+              <div>
+                <AppShell active="logs">
+                  <ObservabilityContent />
+                </AppShell>
+              </div>
+            </div>
+
+            {/* DX pillar — fourth proof of concept. The 3-column kanban needs
+                more horizontal space than other mockups, so the grid ratio
+                is inverted: the mockup gets the wider column (~60%), the
+                claim gets the narrower (~40%). Combined with lg:order-1/2
+                to keep the alternation (mockup on the left). */}
+            <div className="mt-24 grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:items-center">
+              {/* Mockup side (alternated to left) */}
+              <div className="lg:order-1">
+                <AppShell active="dashboard">
+                  <DXContent />
+                </AppShell>
+              </div>
+
+              {/* Claim side (alternated to right) */}
+              <div className="lg:order-2">
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/40 bg-background">
+                  <Terminal className="size-5 text-foreground" aria-hidden />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                  Your agents, on a kanban you can read.
+                </h3>
+                <p className="text-pretty text-base leading-relaxed text-muted-foreground">
+                  AGENTS.md ships in the repo. Every workflow — bootstrap, migrate,
+                  seed, deploy — is typed, versioned, and assigned to an agent.
+                  You watch them work. You ship while they run.
+                </p>
+                <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    AGENTS.md read by Codex, Claude Code, Pi, Cursor, OpenCode
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Workflows are typed procedures — agents call them like any API
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="size-4 text-foreground" aria-hidden />
+                    Live run history, no separate CI dashboard to babysit
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bento grid — supporting features (Email hero, Storage, Search,
+                Docs wide, i18n, Webhooks, Git, Notif). Sits below the 4
+                capability pillars as a compressed scan surface. */}
+            <BentoSection />
           </div>
         </section>
 
-        {/* WHY CHOOSE SECTION */}
+        {/* WHY DIFFERENT SECTION — 3 verifiable differentiators vs other templates */}
         <section id="why" className={`border-t border-border/40 ${sectionPadding}`}>
           <div className={bodyContainerClass}>
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-balance text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
-                Why choose a SaaS boilerplate?
-              </h2>
-              <p className="mt-4 text-pretty text-lg text-muted-foreground">
-                The complete foundation you need to ship your SaaS — without spending months on infrastructure.
-              </p>
-            </div>
-
-            <div className="mt-16 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-              {whyChoose.map(({ icon: Icon, title, description }) => (
-                <div key={title} className="flex flex-col">
-                  <Icon className="size-6 text-foreground" strokeWidth={1.75} />
-                  <h3 className="mt-4 text-lg font-semibold tracking-tight text-foreground">
-                    {title}
-                  </h3>
-                  <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                    {description}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <WhyDifferentSection />
           </div>
         </section>
 

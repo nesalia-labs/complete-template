@@ -8,7 +8,7 @@ import type { FeatureCategory } from "./types"
  * booleans collapsed to "all tiers include X" rows where appropriate.
  *
  * Order of `values` MUST match the order of `tiers` in data.ts:
- *   [starter, pro, team]
+ *   [lite, starter, team]
  *
  * "All tiers" rows are kept for buyer reassurance but the value type is
  * typically `text` per tier rather than a per-tier boolean.
@@ -26,19 +26,19 @@ export const featureCategories: FeatureCategory[] = [
       {
         label: "Database (Postgres + Drizzle ORM)",
         hint: "Schemas, migrations, and seed scripts wired from day one.",
-        values: [true, true, true],
+        values: [false, true, true],
       },
       {
         label: "Backend (Hono + oRPC)",
         hint: "End-to-end typed API without codegen. OpenAPI spec generation included.",
-        values: [true, true, true],
+        values: [false, true, true],
       },
       {
         label: "Storage",
         hint: "S3-compatible providers (Cloudflare R2 by default; AWS / MinIO supported).",
         values: [
+          false,
           { kind: "text", value: "Cloudflare R2" },
-          { kind: "text", value: "Cloudflare R2 + S3" },
           { kind: "text", value: "Cloudflare R2 + S3 + per-tenant buckets" },
         ],
       },
@@ -46,19 +46,16 @@ export const featureCategories: FeatureCategory[] = [
         label: "Background jobs",
         hint: "Trigger.dev for long-running, QStash for short-lived edge jobs.",
         values: [
-          { kind: "text", value: "Trigger.dev + QStash" },
+          false,
           { kind: "text", value: "Trigger.dev + QStash + cron" },
-          {
-            kind: "text",
-            value: "Trigger.dev + QStash + cron + per-tenant queues",
-          },
+          { kind: "text", value: "Trigger.dev + QStash + cron + per-tenant queues" },
         ],
       },
       {
         label: "Billing (Stripe)",
         values: [
+          true,
           { kind: "text", value: "Per-seat + metered" },
-          { kind: "text", value: "Per-seat + metered + trials + coupons" },
           { kind: "text", value: "Per-tenant Stripe Connect" },
         ],
       },
@@ -72,13 +69,13 @@ export const featureCategories: FeatureCategory[] = [
         label: "Seats included",
         values: [
           { kind: "text", value: "1" },
-          { kind: "text", value: "5" },
-          { kind: "text", value: "Unlimited" },
+          { kind: "text", value: "1" },
+          { kind: "text", value: "10" },
         ],
       },
       {
         label: "Admin dashboard + user management",
-        values: [false, true, true],
+        values: [false, false, true],
       },
       {
         label: "Multi-tenant architecture",
@@ -101,7 +98,7 @@ export const featureCategories: FeatureCategory[] = [
   },
   {
     name: "Security & compliance",
-    description: "What's enforced vs what's available as add-on.",
+    description: "What\'s enforced vs what\'s available as add-on.",
     rows: [
       {
         label: "Row-level security + encryption at rest",
@@ -110,7 +107,7 @@ export const featureCategories: FeatureCategory[] = [
       {
         label: "Secrets management",
         hint: "Per-tenant secrets via Doppler / Vault-compatible providers.",
-        values: [true, true, true],
+        values: [false, true, true],
       },
       {
         label: "SOC 2 documentation pack",
@@ -119,7 +116,7 @@ export const featureCategories: FeatureCategory[] = [
           {
             kind: "tooltip",
             value: "Add-on",
-            hint: "Available as a $299 add-on with the Pro tier.",
+            hint: "Available as a $299 add-on with the Starter tier.",
           },
           true,
         ],
@@ -131,7 +128,7 @@ export const featureCategories: FeatureCategory[] = [
           {
             kind: "tooltip",
             value: "Q3 2026",
-            hint: "Ships in the Pro tier once the Q3 2026 release lands.",
+            hint: "Ships in the Starter tier once the Q3 2026 release lands.",
           },
           {
             kind: "tooltip",
@@ -152,16 +149,16 @@ export const featureCategories: FeatureCategory[] = [
       },
       {
         label: "Blog + content hub (MDX)",
-        values: [false, true, true],
+        values: [false, false, true],
       },
       {
         label: "Docs site (Fumadocs)",
         hint: "Full-text search, MDX, AI-assisted actions.",
-        values: [true, true, true],
+        values: [false, true, true],
       },
       {
         label: "i18n (multi-language)",
-        values: [false, true, true],
+        values: [false, false, true],
       },
       {
         label: "GitHub / GitLab webhooks",
@@ -170,8 +167,8 @@ export const featureCategories: FeatureCategory[] = [
       {
         label: "LLM tokens / month",
         values: [
+          { kind: "text", value: "—" },
           { kind: "text", value: "100K" },
-          { kind: "text", value: "1M" },
           { kind: "text", value: "Unlimited (your keys)" },
         ],
       },
@@ -196,15 +193,11 @@ export const featureCategories: FeatureCategory[] = [
       {
         label: "Email support",
         values: [
+          { kind: "dash" },
           {
             kind: "tooltip",
             value: "48h response",
             hint: "Best-effort response within 2 business days.",
-          },
-          {
-            kind: "tooltip",
-            value: "Priority",
-            hint: "Target response within 4 business hours.",
           },
           {
             kind: "tooltip",
@@ -227,13 +220,13 @@ export const featureCategories: FeatureCategory[] = [
       },
       {
         label: "End-to-end testing (Playwright)",
-        values: [false, true, true],
+        values: [false, false, true],
       },
     ],
   },
 ]
 
 /**
- * "Best value" badge label. Used by FeatureMatrix to label the Pro column.
+ * "Best value" badge label. Used by FeatureMatrix to label the Team column.
  */
 export const BEST_VALUE_LABEL = "Best value"

@@ -1,25 +1,20 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, BookOpen, Check } from "lucide-react"
+import { ArrowRight, BookOpen } from "lucide-react"
 
 import { Button } from "@workspace/ui/components/ui/button"
-import { Badge } from "@workspace/ui/components/ui/badge"
-import {
-  Card,
-  CardDescription,
-  CardTitle,
-} from "@workspace/ui/components/ui/card"
 
 import { HomeFooter } from "@/components/footers/home-footer"
 
 import { ComparisonBlock } from "@/components/pricing/comparison-block"
+import { FounderBanner } from "@/components/pricing/founder-banner"
 import { FeatureMatrix } from "@/components/pricing/feature-matrix"
 import { GuaranteeStrip } from "@/components/pricing/guarantee-strip"
+import { MockupProofRow } from "@/components/pricing/mockup-proof-row"
 import { PricingFaq } from "@/components/pricing/pricing-faq"
-import { ProofRow } from "@/components/pricing/proof-row"
 import { TierGrid } from "@/components/pricing/tier-grid"
 
-import { comparisonBlocks, guarantee, pricingFaqs, proofItems, tiers } from "@/lib/pricing/data"
+import { comparisonBlocks, founderOffer, guarantee, pricingFaqs, tiers } from "@/lib/pricing/data"
 import { featureCategories } from "@/lib/pricing/matrix"
 
 export const metadata: Metadata = {
@@ -50,16 +45,35 @@ const sectionPadding = "py-24 sm:py-32"
  *   1. TierGrid            (Layer 1: Package — leads the page)
  *   2. FeatureMatrix       (Layer 2: Differences — the actual comparison)
  *   3. ComparisonBlock     (Layer 3: Exceptions / vs competitors)
- *   4. ProofRow            (Layer 4: what you ship on day 1)
+ *   4. MockupProofRow      (Layer 4: what you ship on day 1)
  *   5. GuaranteeStrip      (reassurance)
  *   6. PricingFaq          (pricing-specific Q&A)
  *   7. Final CTA           (twin buttons, same pattern as home)
  */
 export default function PricingPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: pricingFaqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <div className="flex min-h-screen flex-col selection:bg-foreground selection:text-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <main className="flex-1 border-x border-border/40 mx-auto w-full max-w-[1400px]">
-        {/* 1. Tier grid */}
+        {/* 1. Tier grid + founder banner */}
         <section
           id="tiers"
           className={`border-b border-border/40 ${sectionPadding}`}
@@ -70,63 +84,18 @@ export default function PricingPage() {
                 Pick your plan.
               </h1>
               <p className="mt-4 text-pretty text-lg text-muted-foreground">
-                Three tiers, one-time price, lifetime updates. Every tier
+                Four tiers, one-time price, lifetime updates. Every tier
                 ships with the full wired runtime — higher tiers unlock
                 team-scale features and priority support.
               </p>
             </div>
-            <TierGrid tiers={tiers} />
 
-            {/* Free template — DeesseJS Lite (open-source subset) */}
-            <Card className="mx-auto mt-10 w-full max-w-4xl rounded-lg border bg-background p-8 shadow-sm">
-              <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex-1 text-center sm:text-left">
-                  <div className="flex items-center justify-center gap-2 sm:justify-start">
-                    <CardTitle className="text-2xl font-semibold">
-                      DeesseJS Lite
-                    </CardTitle>
-                    <Badge
-                      variant="secondary"
-                      className="rounded-full px-2.5 py-0.5 text-xs font-medium"
-                    >
-                      Free
-                    </Badge>
-                  </div>
-                  <CardDescription className="mt-2 text-base text-muted-foreground">
-                    Open-source subset of the template. Auth, billing, agent
-                    primitives — and that&apos;s it.
-                  </CardDescription>
-                  <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground sm:justify-start">
-                    <li className="flex items-center gap-1.5">
-                      <Check className="size-4 shrink-0 text-foreground" aria-hidden />
-                      MIT licensed
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <Check className="size-4 shrink-0 text-foreground" aria-hidden />
-                      Auth + billing wired
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <Check className="size-4 shrink-0 text-foreground" aria-hidden />
-                      AGENTS.md included
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex shrink-0 flex-col items-center gap-1.5 sm:items-end">
-                  <Button
-                    variant="default"
-                    className="h-11 w-full rounded-md font-medium sm:w-auto"
-                    nativeButton={false}
-                    render={<a href="https://github.com/nesalia-inc/deessejs-lite" />}
-                  >
-                    Get DeesseJS Lite
-                    <ArrowRight className="size-4" />
-                  </Button>
-                  <span className="text-xs text-muted-foreground">
-                    Open source · Free forever
-                  </span>
-                </div>
-              </div>
-            </Card>
+            {/* Founder banner — urgency strip (per SaaSHero pattern) */}
+            <div className="mx-auto mb-12 max-w-4xl">
+              <FounderBanner offer={founderOffer} />
+            </div>
+
+            <TierGrid tiers={tiers} />
           </div>
         </section>
 
@@ -175,7 +144,7 @@ export default function PricingPage() {
                 Every surface is wired, tested, and ready to deploy.
               </p>
             </div>
-            <ProofRow items={proofItems} />
+            <MockupProofRow />
           </div>
         </section>
 
@@ -201,26 +170,32 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* 7. Final CTA */}
+        {/* 7. Final CTA — pricing-specific (founder urgency) */}
         <section
+          id="claim"
           className={`relative overflow-hidden ${sectionPadding}`}
         >
           <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[800px] -translate-x-1/2 -translate-y-1/2 opacity-20 blur-[100px] bg-foreground/20 rounded-full pointer-events-none" />
           <div className={`${bodyContainerClass} flex flex-col items-center text-center`}>
-            <h2 className="text-balance text-4xl font-bold tracking-tighter text-foreground sm:text-6xl">
-              Ready to ship your agents?
+            <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+              Final offer
+            </p>
+            <h2 className="mt-4 text-balance text-4xl font-bold tracking-tighter text-foreground sm:text-6xl">
+              Lock in $99 founder pricing.
             </h2>
             <p className="mt-6 max-w-2xl text-pretty text-lg font-medium text-muted-foreground sm:text-xl">
-              Get started in minutes. No credit card required.
+              37 of 50 spots claimed. Closes July 31, 2026.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Button
                 size="lg"
                 className="h-12 gap-2 rounded-full px-8 text-base font-semibold shadow-md transition-transform hover:scale-105"
                 nativeButton={false}
-                render={<Link href="/signup" />}
+                render={
+                  <a href="mailto:founders@deessejs.com?subject=Claim%20DeesseJS%20founder%20pricing" />
+                }
               >
-                Get DeesseJS
+                Claim founder pricing
                 <ArrowRight className="h-4 w-4" />
               </Button>
               <Button
@@ -228,10 +203,9 @@ export default function PricingPage() {
                 variant="outline"
                 className="h-12 gap-2 rounded-full px-8 text-base font-medium shadow-sm backdrop-blur-md"
                 nativeButton={false}
-                render={<Link href="/docs" />}
+                render={<Link href="#compare" />}
               >
-                <BookOpen className="h-4 w-4" />
-                Read the docs
+                Compare all features
               </Button>
             </div>
           </div>

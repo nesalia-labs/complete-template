@@ -13,12 +13,13 @@ const navLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Changelog", href: "/changelog" },
   { label: "Docs", href: "https://docs.deessejs.com" },
+  { label: "Demo", href: "https://demo.deessejs.com" },
 ]
 
 /**
  * HomeHeader — sticky top nav for the marketing site.
  *
- * Logo + 4 nav links on the left, 2 CTAs (Sign in ghost, Get started
+ * Logo + 5 nav links on the left, 2 CTAs (Sign in ghost, Get started
  * primary) on the right. Backdrop blur on scroll, border-b to
  * separate from the main content.
  *

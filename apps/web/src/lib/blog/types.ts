@@ -64,3 +64,34 @@ export function sortReleasesDesc(releases: Release[]): Release[] {
     return b.date.localeCompare(a.date);
   });
 }
+
+/**
+ * Group releases by major.minor version (e.g. "0.1", "0.2", "1.0").
+ * Returns groups in semver-desc order. Each group contains its releases
+ * already sorted desc.
+ *
+ * Pattern: Linear / Vercel changelogs — visual separator between version
+ * cohorts helps the visitor navigate volume.
+ */
+export interface ReleaseGroup {
+  /** The major.minor label (e.g. "0.1"). */
+  label: string
+  /** Releases in this group, sorted desc by patch version. */
+  releases: Release[]
+}
+
+export function groupReleasesByMinor(releases: Release[]): ReleaseGroup[] {
+  const sorted = sortReleasesDesc(releases)
+  const map = new Map<string, Release[]>()
+  for (const r of sorted) {
+    const parts = r.version.split(".")
+    const minor = `${parts[0] ?? "0"}.${parts[1] ?? "0"}`
+    const list = map.get(minor) ?? []
+    list.push(r)
+    map.set(minor, list)
+  }
+  return Array.from(map.entries()).map(([label, releases]) => ({
+    label,
+    releases,
+  }))
+}

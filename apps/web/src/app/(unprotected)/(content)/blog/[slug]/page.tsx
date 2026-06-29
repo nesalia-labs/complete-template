@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, RefreshCw } from "lucide-react";
 
+import { Badge } from "@workspace/ui/components/ui/badge";
 import { Separator } from "@workspace/ui/components/ui/separator";
 
 import { allPosts } from "content-collections";
 
 import { ArticleCta } from "@/components/blog/article-cta";
-import { AuthorBadge } from "@/components/blog/author-badge";
+import { AuthorBio } from "@/components/blog/author-bio";
 import { PostCard } from "@/components/blog/post-card";
 import { PostMeta } from "@/components/blog/post-meta";
 import { Prose } from "@/components/blog/prose";
+import { ReadingProgress } from "@/components/blog/reading-progress";
+import { ShareButtons } from "@/components/blog/share-buttons";
+import { TableOfContents } from "@/components/blog/table-of-contents";
 import { MdxRenderer } from "@/components/blog/mdx-renderer";
 import {
   getAdjacentPosts,
@@ -66,6 +70,33 @@ export default async function PostPage(
 
   return (
     <article className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.description,
+            datePublished: post.date,
+            dateModified: post.updated ?? post.date,
+            author: {
+              "@type": "Person",
+              "@id": "https://deessejs.com/#person",
+              name: post.author.name,
+              url: `https://deessejs.com/about`,
+            },
+            publisher: {
+              "@type": "Organization",
+              "@id": "https://deessejs.com/#organization",
+              name: "DeesseJS",
+              url: "https://deessejs.com",
+            },
+            url: `https://deessejs.com${post.url}`,
+            ...(post.cover ? { image: post.cover } : {}),
+          }).replace(/</g, "\\u003c"),
+        }}
+      />
       <Link
         href="/blog"
         className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -74,6 +105,18 @@ export default async function PostPage(
         Back to blog
       </Link>
 
+      {/* Cover image — optional, full-bleed at top of article */}
+      {post.cover ? (
+        <figure className="mb-10 overflow-hidden rounded-xl border border-border/40 bg-muted">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={post.cover}
+            alt={post.title}
+            className="aspect-video w-full object-cover"
+          />
+        </figure>
+      ) : null}
+
       <header className="mb-10">
         <h1 className="text-balance text-4xl font-bold tracking-tighter sm:text-5xl">
           {post.title}
@@ -81,16 +124,47 @@ export default async function PostPage(
         <p className="mt-4 text-pretty text-lg text-muted-foreground">
           {post.description}
         </p>
-        <div className="mt-6">
+
+        {/* "Updated" badge — shown only when the post has been revised
+            after its initial publication date. Per convention (Vercel blog,
+            Stripe changelog): signals to readers that the content is current. */}
+        {post.updated && post.updated > post.date ? (
+          <div className="mt-4">
+            <Badge variant="secondary" className="gap-1.5">
+              <RefreshCw className="size-3" aria-hidden />
+              Updated {post.updated}
+            </Badge>
+          </div>
+        ) : null}
+
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
           <PostMeta post={post} />
+          <ShareButtons url={post.url} title={post.title} />
         </div>
       </header>
 
-      <Prose className="mt-10">
-        <MdxRenderer code={post.mdxCode} />
-      </Prose>
+      {/* Reading progress bar — fixed top, tracks the Prose container. */}
+      <ReadingProgress targetId="article-prose" />
+
+      {/* 2-col layout on lg+: content + sticky TOC sidebar. Below lg: stacked. */}
+      <div className="lg:grid lg:grid-cols-[1fr_180px] lg:gap-12">
+        <div className="min-w-0">
+          <Prose id="article-prose" className="mt-10">
+            <MdxRenderer code={post.mdxCode} />
+          </Prose>
+        </div>
+        <aside className="hidden lg:block">
+          <TableOfContents targetId="article-prose" />
+        </aside>
+      </div>
 
       <ArticleCta />
+
+      {/* Author bio — full block at the bottom of the article, mirrors
+          Vercel/Resend convention. The PostMeta is the compact header;
+          AuthorBio is the full closer. Supports multi-author via
+          `post.authors` (added 2026-06-29). */}
+      <AuthorBio authors={post.authors} />
 
       {(prev || next) && (
         <>
@@ -137,7 +211,7 @@ export default async function PostPage(
           <h2 className="mb-6 text-2xl font-semibold tracking-tight">
             Related reading
           </h2>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r) => (
               <PostCard key={r.slug} post={r} />
             ))}
